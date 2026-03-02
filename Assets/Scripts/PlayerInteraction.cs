@@ -11,11 +11,13 @@ public class PlayerInteraction : MonoBehaviour
     void Start()
     {
         playerCamera = GetComponentInChildren<Camera>();
+        if (playerCamera == null)
+            Debug.LogError("PlayerInteraction: no Camera found as a child of " + gameObject.name);
     }
 
     void Update()
     {
-        if (Keyboard.current == null) return;
+        if (Keyboard.current == null || playerCamera == null) return;
 
         // Check every frame what the player is looking at
         var ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);

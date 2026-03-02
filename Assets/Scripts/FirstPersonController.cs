@@ -41,6 +41,12 @@ public class FirstPersonController : MonoBehaviour
         standCamY  = standHeight / 2f - 0.15f;
         crouchCamY = standCamY * (crouchHeight / standHeight);
 
+        // Snap camera to the correct height immediately so the raycast
+        // works in frame 1 (without this it lerps from the wrong position).
+        var startPos = playerCamera.transform.localPosition;
+        startPos.y = standCamY;
+        playerCamera.transform.localPosition = startPos;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible   = false;
     }
