@@ -34,7 +34,11 @@ public class FirstPersonController : MonoBehaviour
         controller   = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
 
-        standCamY = playerCamera.transform.localPosition.y;
+        // Compute eye heights from standHeight so they don't depend on where
+        // the camera object was placed in the hierarchy in the Inspector.
+        // Pivot sits at standHeight/2 above the floor (CharacterController math),
+        // so subtracting 0.15 puts the camera ~1.6 m from the floor.
+        standCamY  = standHeight / 2f - 0.15f;
         crouchCamY = standCamY * (crouchHeight / standHeight);
 
         Cursor.lockState = CursorLockMode.Locked;
