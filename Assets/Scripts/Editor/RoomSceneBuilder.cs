@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Creates a standalone Unity scene for each room so two people can
@@ -15,12 +16,14 @@ public static class RoomSceneBuilder
     [MenuItem("Tools/Create Room Scenes")]
     public static void CreateRoomScenes()
     {
+        // Remember the scene that's currently open so we can return to it
+        string originalPath = SceneManager.GetActiveScene().path;
+
         EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
 
         if (!AssetDatabase.IsValidFolder("Assets/Scenes"))
             AssetDatabase.CreateFolder("Assets", "Scenes");
 
-        // Each entry: (display name, scene path, x0, x1, z0, z1, build method)
         CreateScene("Kitchen",  "Assets/Scenes/Kitchen.unity",
                      1f,  8f,  1f, 7f, RoomBuilder.BuildKitchen);
         CreateScene("Hallway",  "Assets/Scenes/Hallway.unity",
@@ -29,6 +32,11 @@ public static class RoomSceneBuilder
                     -8f,  1f,  1f, 7f, RoomBuilder.BuildCageRoom);
 
         AssetDatabase.Refresh();
+
+        // Reopen the scene that was active before we started
+        if (!string.IsNullOrEmpty(originalPath))
+            EditorSceneManager.OpenScene(originalPath);
+
         EditorUtility.DisplayDialog(
             "Room Scenes Created",
             "Saved to Assets/Scenes/:\n  Kitchen.unity\n  Hallway.unity\n  CageRoom.unity",
