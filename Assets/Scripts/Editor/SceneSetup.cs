@@ -29,46 +29,58 @@ public static class SceneSetup
         Debug.Log("Full scene built! Save (Ctrl+S / Cmd+S) then press Play.");
     }
 
-    // ── Creates a fully-wired Player if the scene doesn't already have one ──
+    // ── Wires up the Player — creates it if missing, fixes it if incomplete ──
     static void EnsurePlayer()
     {
-        if (GameObject.Find("Player") != null)
+        // Find or create the root Player object
+        var player = GameObject.Find("Player");
+        if (player == null)
         {
-            Debug.Log("Player already exists — skipping creation.");
-            return;
+            player = new GameObject("Player");
+            Undo.RegisterCreatedObjectUndo(player, "Create Player");
+            player.transform.position = new Vector3(0f, 1.5f, -5f);
+            Debug.Log("Player created at the front door.");
+        }
+        else
+        {
+            Debug.Log("Player found — adding any missing components.");
         }
 
-        // ── Player root ──────────────────────────────────────────────
-        var player = new GameObject("Player");
-        Undo.RegisterCreatedObjectUndo(player, "Create Player");
-
-        // Just inside the front door (door at Z = -7, facing north)
-        player.transform.position = new Vector3(0f, 1.5f, -5f);
-
-        var cc    = player.AddComponent<CharacterController>();
+        // ── CharacterController ──────────────────────────────────────
+        var cc = player.GetComponent<CharacterController>();
+        if (cc == null) cc = Undo.AddComponent<CharacterController>(player);
         cc.height = 1.75f;
         cc.radius = 0.4f;
-        cc.center = Vector3.zero;   // FirstPersonController adjusts this every frame
+        cc.center = Vector3.zero;
 
-        player.AddComponent<FirstPersonController>();
-        player.AddComponent<PlayerInteraction>();
+        // ── Movement & interaction scripts ───────────────────────────
+        if (player.GetComponent<FirstPersonController>() == null)
+            Undo.AddComponent<FirstPersonController>(player);
+
+        if (player.GetComponent<PlayerInteraction>() == null)
+            Undo.AddComponent<PlayerInteraction>(player);
 
         // ── Camera child ─────────────────────────────────────────────
-        var camGO = new GameObject("PlayerCamera");
-        Undo.RegisterCreatedObjectUndo(camGO, "Create PlayerCamera");
-        camGO.transform.SetParent(player.transform, false);
-        camGO.transform.localPosition = new Vector3(0f, 0.725f, 0f);   // eye height
+        // Reuse an existing Camera child if there is one
+        var cam = player.GetComponentInChildren<Camera>();
+        if (cam == null)
+        {
+            var camGO = new GameObject("PlayerCamera");
+            Undo.RegisterCreatedObjectUndo(camGO, "Create PlayerCamera");
+            camGO.transform.SetParent(player.transform, false);
+            camGO.transform.localPosition = new Vector3(0f, 0.725f, 0f);
 
-        var cam           = camGO.AddComponent<Camera>();
-        cam.nearClipPlane = 0.05f;
-        cam.fieldOfView   = 75f;
-        camGO.AddComponent<AudioListener>();
+            cam               = camGO.AddComponent<Camera>();
+            cam.nearClipPlane = 0.05f;
+            cam.fieldOfView   = 75f;
+
+            if (camGO.GetComponent<AudioListener>() == null)
+                camGO.AddComponent<AudioListener>();
+        }
 
         // Remove the default Main Camera so there's only one AudioListener
         var oldCam = GameObject.FindWithTag("MainCamera");
-        if (oldCam != null && oldCam != camGO)
+        if (oldCam != null && oldCam != cam.gameObject)
             Undo.DestroyObjectImmediate(oldCam);
-
-        Debug.Log("Player created at the front door.");
     }
 }
