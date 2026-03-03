@@ -181,31 +181,110 @@ public static class RoomBuilder
     {
         var root = Child("Hallway", house);
 
-        // Small entry table near front door
-        Box("Entry_Table",    root, -5.5f, 0.38f, -5.8f, 1.2f,  0.06f, 0.45f);
-        Box("Entry_Table_L1", root, -5.0f, 0.19f, -5.6f, 0.07f, 0.38f, 0.07f);
-        Box("Entry_Table_L2", root, -6.0f, 0.19f, -5.6f, 0.07f, 0.38f, 0.07f);
-        Box("Entry_Table_L3", root, -5.0f, 0.19f, -6.0f, 0.07f, 0.38f, 0.07f);
-        Box("Entry_Table_L4", root, -6.0f, 0.19f, -6.0f, 0.07f, 0.38f, 0.07f);
+        // ── Floor coverings ───────────────────────────────────────────
+        // Welcome mat — just inside front door (south wall, center)
+        Box("WelcomeMat",        root,  0.0f,  0.005f, -6.5f,  1.6f,  0.010f, 0.9f);
+        // Runner rug — main corridor, runs N-S along center of hallway
+        Box("Rug_Runner",        root, -2.5f,  0.007f, -3.0f,  1.4f,  0.014f, 7.6f);
+        // Foyer rug — SE open area (south of bathroom)
+        Box("Rug_Foyer",         root,  5.5f,  0.006f, -6.0f,  2.5f,  0.012f, 1.6f);
+
+        // ── Entry / coat area — south wall ────────────────────────────
+        // Coat hook board east of front door
+        Box("CoatBoard",         root,  2.0f,  1.50f, -6.87f,  1.6f,  0.14f, 0.05f);
+        Box("Hook1",             root,  1.3f,  1.50f, -6.82f,  0.05f, 0.04f, 0.14f);
+        Box("Hook2",             root,  2.0f,  1.50f, -6.82f,  0.05f, 0.04f, 0.14f);
+        Box("Hook3",             root,  2.7f,  1.50f, -6.82f,  0.05f, 0.04f, 0.14f);
+        // Shoe rack — west side of front door
+        Box("ShoeRack_Shelf1",   root, -2.2f,  0.13f, -6.68f,  1.4f,  0.04f, 0.35f);
+        Box("ShoeRack_Shelf2",   root, -2.2f,  0.30f, -6.68f,  1.4f,  0.04f, 0.35f);
+        Box("ShoeRack_SideL",    root, -2.9f,  0.17f, -6.68f,  0.04f, 0.34f, 0.33f);
+        Box("ShoeRack_SideR",    root, -1.5f,  0.17f, -6.68f,  0.04f, 0.34f, 0.33f);
+
+        // ── Bench — east wall in foyer area ───────────────────────────
+        Box("Bench_Seat",        root,  7.62f, 0.38f, -6.0f,   0.36f, 0.06f, 2.0f);
+        Box("Bench_LegL",        root,  7.62f, 0.19f, -5.1f,   0.3f,  0.38f, 0.07f);
+        Box("Bench_LegR",        root,  7.62f, 0.19f, -6.9f,   0.3f,  0.38f, 0.07f);
+
+        // ── West-wall furniture ───────────────────────────────────────
+        // Entry table (west side, near front door)
+        Box("Entry_Table",       root, -5.5f,  0.38f, -5.8f,   1.2f,  0.06f, 0.45f);
+        Box("Entry_Table_L1",    root, -5.0f,  0.19f, -5.6f,   0.07f, 0.38f, 0.07f);
+        Box("Entry_Table_L2",    root, -6.0f,  0.19f, -5.6f,   0.07f, 0.38f, 0.07f);
+        Box("Entry_Table_L3",    root, -5.0f,  0.19f, -6.0f,   0.07f, 0.38f, 0.07f);
+        Box("Entry_Table_L4",    root, -6.0f,  0.19f, -6.0f,   0.07f, 0.38f, 0.07f);
 
         // Tall narrow cabinet against west wall
-        Box("Cabinet",      root, -7.4f, 1.1f, -2.0f, 0.6f,  2.2f, 1.0f);
-        Box("Cabinet_Door", root, -7.1f, 1.1f, -2.0f, 0.05f, 2.0f, 0.9f);
+        Box("Cabinet",           root, -7.4f,  1.1f,  -2.0f,   0.6f,  2.2f,  1.0f);
+        Box("Cabinet_Door",      root, -7.1f,  1.1f,  -2.0f,   0.05f, 2.0f,  0.9f);
+
+        // Framed mirror above cabinet
+        Box("Mirror_Glass",      root, -7.87f, 2.70f, -2.0f,   0.03f, 0.80f, 0.90f);
+        Box("Mirror_Frame_T",    root, -7.87f, 3.13f, -2.0f,   0.04f, 0.07f, 1.04f);
+        Box("Mirror_Frame_B",    root, -7.87f, 2.27f, -2.0f,   0.04f, 0.07f, 1.04f);
+        Box("Mirror_Frame_L",    root, -7.87f, 2.70f, -2.48f,  0.04f, 0.87f, 0.07f);
+        Box("Mirror_Frame_R",    root, -7.87f, 2.70f, -1.52f,  0.04f, 0.87f, 0.07f);
+
+        // Console table with table lamp against west wall
+        Box("ConsoleTable_Top",  root, -7.40f, 0.42f, -4.5f,   0.55f, 0.05f, 0.9f);
+        Box("ConsoleTable_L1",   root, -7.15f, 0.21f, -4.1f,   0.06f, 0.42f, 0.06f);
+        Box("ConsoleTable_L2",   root, -7.65f, 0.21f, -4.1f,   0.06f, 0.42f, 0.06f);
+        Box("ConsoleTable_L3",   root, -7.15f, 0.21f, -4.9f,   0.06f, 0.42f, 0.06f);
+        Box("ConsoleTable_L4",   root, -7.65f, 0.21f, -4.9f,   0.06f, 0.42f, 0.06f);
+        Box("TableLamp_Base",    root, -7.25f, 0.48f, -4.5f,   0.14f, 0.06f, 0.14f);
+        Box("TableLamp_Pole",    root, -7.25f, 0.70f, -4.5f,   0.04f, 0.44f, 0.04f);
+        Box("TableLamp_Shade",   root, -7.25f, 1.02f, -4.5f,   0.26f, 0.22f, 0.26f);
+
+        // ── Wall art ──────────────────────────────────────────────────
+        // Paintings on west wall
+        Box("Painting_W1",       root, -7.92f, 1.90f, -5.5f,   0.04f, 0.65f, 0.85f);
+        Box("Painting_W2",       root, -7.92f, 1.90f, -0.5f,   0.04f, 0.65f, 0.85f);
+        // Picture frames on south wall
+        Box("PicFrame_S1",       root, -4.0f,  1.85f, -6.89f,  0.60f, 0.45f, 0.04f);
+        Box("PicFrame_S2",       root, -0.5f,  1.85f, -6.89f,  0.50f, 0.38f, 0.04f);
+
+        // ── Floor lamp — NW corner ────────────────────────────────────
+        Box("FloorLamp_Base",    root, -7.3f,  0.05f, -6.3f,   0.30f, 0.10f, 0.30f);
+        Box("FloorLamp_Pole",    root, -7.3f,  0.95f, -6.3f,   0.05f, 1.90f, 0.05f);
+        Box("FloorLamp_Shade",   root, -7.3f,  2.00f, -6.3f,   0.50f, 0.28f, 0.50f);
+
+        // ── Ceiling pendants ──────────────────────────────────────────
+        // Pendant 1 — mid-corridor
+        Box("Pend1_Cap",         root, -2.0f,  3.44f, -3.0f,   0.14f, 0.08f, 0.14f);
+        Box("Pend1_Cord",        root, -2.0f,  3.00f, -3.0f,   0.025f,0.88f, 0.025f);
+        Box("Pend1_Shade",       root, -2.0f,  2.53f, -3.0f,   0.32f, 0.22f, 0.32f);
+        // Pendant 2 — foyer area
+        Box("Pend2_Cap",         root,  5.5f,  3.44f, -6.0f,   0.14f, 0.08f, 0.14f);
+        Box("Pend2_Cord",        root,  5.5f,  3.00f, -6.0f,   0.025f,0.88f, 0.025f);
+        Box("Pend2_Shade",       root,  5.5f,  2.53f, -6.0f,   0.32f, 0.22f, 0.32f);
+
+        // ── Interior door frame trim (Z=1, door X=-2.75..-1.25, H=2.3) ──
+        const float jW = 0.08f;   // jamb face width
+        const float jD = 0.12f;   // jamb depth into wall
+        Box("IDFrame_L",         root, -2.75f, 1.15f, 1.0f,    jW,    2.30f, jD);
+        Box("IDFrame_R",         root, -1.25f, 1.15f, 1.0f,    jW,    2.30f, jD);
+        Box("IDFrame_T",         root, -2.0f,  2.34f, 1.0f,    1.66f, jW,    jD);
+
+        // ── Baseboard trim ────────────────────────────────────────────
+        // South wall — two segments around door opening (assumed centered at X=0, DW=1.5)
+        Box("Base_S_W",          root, -4.4f,  0.06f, -6.87f,  7.2f,  0.12f, 0.04f);
+        Box("Base_S_E",          root,  4.4f,  0.06f, -6.87f,  7.2f,  0.12f, 0.04f);
+        // West wall full length
+        Box("Base_W",            root, -7.87f, 0.06f, -3.0f,   0.04f, 0.12f, 8.0f);
 
         // ── Bathroom (NE corner: X 3..8, Z -4.5..1) ──────────────────
-        // Wall height matches house (H = 3.5), door height matches house (DH = 2.3)
         const float wH  = 3.5f;
         const float wMY = wH / 2f;    // mid-height = 1.75
         const float dH  = 2.3f;       // door opening height
 
         // West partition — south panel  (Z -4.5 → -3.0, length 1.5)
-        Box("Bath_Wall_W_S",    root, 3.075f, wMY,                    -3.75f, 0.15f, wH,        1.5f);
+        Box("Bath_Wall_W_S",    root, 3.075f, wMY,                   -3.75f, 0.15f, wH,       1.5f);
         // West partition — door lintel  (Z -3.0 → -1.8, above door)
-        Box("Bath_Door_Lintel", root, 3.075f, dH + (wH - dH) / 2f,   -2.4f,  0.15f, wH - dH,  1.2f);
+        Box("Bath_Door_Lintel", root, 3.075f, dH + (wH - dH) / 2f,  -2.4f,  0.15f, wH - dH, 1.2f);
         // West partition — north panel  (Z -1.8 → 1.0, length 2.8)
-        Box("Bath_Wall_W_N",    root, 3.075f, wMY,                    -0.4f,  0.15f, wH,        2.8f);
+        Box("Bath_Wall_W_N",    root, 3.075f, wMY,                   -0.4f,  0.15f, wH,       2.8f);
         // South partition  (X 3..8 at Z -4.5)
-        Box("Bath_Wall_S",      root, 5.5f,   wMY,                    -4.425f, 5.0f, wH,        0.15f);
+        Box("Bath_Wall_S",      root, 5.5f,   wMY,                  -4.425f, 5.0f,  wH,       0.15f);
 
         // Bathroom door — hinge at south end of gap (Z -3.0), swings +90° into bathroom
         SwingDoor("Bath_Door", root,
@@ -214,21 +293,34 @@ public static class RoomBuilder
                   new Vector3(0.06f, dH, 1.2f),
                   90f);
 
-        // ── Bathroom fixtures ──────────────────────────────────────────
-        // Bathtub — south-east corner, along east wall
-        Box("Tub",         root, 7.0f,  0.3f,  -3.2f,  1.8f,  0.6f,  2.0f);
-        Box("Tub_Faucet",  root, 7.0f,  0.65f, -2.25f, 0.04f, 0.15f, 0.04f);
-
+        // ── Bathroom fixtures ─────────────────────────────────────────
+        // Bathtub — south end, along east wall
+        Box("Tub",              root, 7.0f,  0.30f, -3.2f,  1.8f,  0.60f, 2.0f);
+        Box("Tub_Faucet",       root, 7.0f,  0.65f, -2.25f, 0.04f, 0.15f, 0.04f);
         // Toilet — north end, against east wall
-        Box("Toilet_Base", root, 7.5f,  0.2f,  0.3f,   0.5f,  0.4f,  0.6f);
-        Box("Toilet_Tank", root, 7.65f, 0.65f, 0.05f,  0.25f, 0.5f,  0.2f);
-        Box("Toilet_Seat", root, 7.5f,  0.42f, 0.3f,   0.48f, 0.04f, 0.52f);
-
+        Box("Toilet_Base",      root, 7.5f,  0.20f,  0.3f,  0.5f,  0.40f, 0.6f);
+        Box("Toilet_Tank",      root, 7.65f, 0.65f,  0.05f, 0.25f, 0.50f, 0.2f);
+        Box("Toilet_Seat",      root, 7.5f,  0.42f,  0.3f,  0.48f, 0.04f, 0.52f);
         // Sink / vanity — middle of east wall
-        Box("Sink_Counter", root, 7.55f, 0.45f, -1.5f,  0.45f, 0.9f,  0.8f);
-        Box("Sink_Basin",   root, 7.5f,  0.9f,  -1.5f,  0.3f,  0.04f, 0.4f);
-        Box("Sink_Faucet",  root, 7.5f,  1.02f, -1.3f,  0.04f, 0.18f, 0.04f);
-        Box("Sink_Mirror",  root, 7.87f, 1.6f,  -1.5f,  0.03f, 0.6f,  0.7f);
+        Box("Sink_Counter",     root, 7.55f, 0.45f, -1.5f,  0.45f, 0.90f, 0.8f);
+        Box("Sink_Basin",       root, 7.5f,  0.90f, -1.5f,  0.30f, 0.04f, 0.4f);
+        Box("Sink_Faucet",      root, 7.5f,  1.02f, -1.3f,  0.04f, 0.18f, 0.04f);
+        Box("Sink_Mirror",      root, 7.87f, 1.60f, -1.5f,  0.03f, 0.60f, 0.7f);
+
+        // ── Bathroom extras ───────────────────────────────────────────
+        // Bath mat in front of sink
+        Box("BathMat",          root, 7.30f, 0.005f,-1.5f,  0.65f, 0.01f, 0.5f);
+        // Towel rack on east wall between tub and sink
+        Box("Towel_Bar",        root, 7.87f, 1.10f, -2.5f,  0.04f, 0.04f, 0.6f);
+        Box("Towel_Bracket1",   root, 7.87f, 1.10f, -2.2f,  0.04f, 0.12f, 0.06f);
+        Box("Towel_Bracket2",   root, 7.87f, 1.10f, -2.8f,  0.04f, 0.12f, 0.06f);
+        // Shower curtain rod + closed curtain over tub
+        Box("Curtain_Rod",      root, 7.0f,  2.10f, -3.2f,  0.06f, 0.06f, 2.0f);
+        Box("Curtain",          root, 7.2f,  1.55f, -3.2f,  0.02f, 1.10f, 1.95f);
+        // Toilet paper holder
+        Box("TP_Holder",        root, 7.87f, 0.70f,  0.55f, 0.04f, 0.06f, 0.2f);
+        // Shelf above toilet
+        Box("Toilet_Shelf",     root, 7.60f, 1.30f,  0.2f,  0.5f,  0.04f, 0.35f);
     }
 
     // ── HELPERS ──────────────────────────────────────────────────────
