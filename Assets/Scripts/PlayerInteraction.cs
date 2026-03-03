@@ -19,12 +19,17 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (Keyboard.current == null || playerCamera == null) return;
 
-        // Check every frame what the player is looking at
-        var ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
-            lookingAt = hit.collider.GetComponentInParent<Openable>();
-        else
-            lookingAt = null;
+        // Scan ALL hits along the ray so decorative geometry doesn't block doors
+        var ray  = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        var hits = Physics.RaycastAll(ray, interactRange);
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+        lookingAt = null;
+        foreach (var h in hits)
+        {
+            var o = h.collider.GetComponentInParent<Openable>();
+            if (o != null) { lookingAt = o; break; }
+        }
 
         // Press E to open/close
         if (Keyboard.current.eKey.wasPressedThisFrame && lookingAt != null)
